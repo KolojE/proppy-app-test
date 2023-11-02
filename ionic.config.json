@@ -1,0 +1,8 @@
+{
+  "name": "ProppyApp Test",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "eb388616"
+}
