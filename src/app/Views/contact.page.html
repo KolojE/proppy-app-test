@@ -1,0 +1,36 @@
+<ion-content>
+    <ion-header [translucent]="true">
+        <ion-toolbar>
+        <ion-title>
+            Contact
+        </ion-title>
+        </ion-toolbar>
+    </ion-header>
+    
+    <ion-content [fullscreen]="true">
+        <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Contact</ion-title>
+        </ion-toolbar>
+        </ion-header>
+        <ion-list *ngFor="let contact of sampleData" (click)="openActionSheet(true,contact.id)" >
+            <ion-list-header>
+                <ion-label>
+                    {{contact.name}}
+                </ion-label>
+            </ion-list-header>
+        </ion-list>
+    </ion-content>
+    <ion-action-sheet [isOpen]="actionSheet"
+                      [buttons]="actionSheetButtons"
+                      (didDismiss)="actionSheetHandler($event)"
+    ></ion-action-sheet>
+    <contact-edit-modal
+    [isOpen]="isEditModalOpen"
+    [contact]="selectedContact"
+    (onSave)="onContactSaved($event)"
+    (didDismiss)="toggleEditModal(false)"
+    >
+
+    </contact-edit-modal>
+</ion-content>
