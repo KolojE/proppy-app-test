@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Contact } from "../Model/Contact/contact.model";
-
+import { ContactService } from "../Service/contact.service";
 
 @Component({
   selector: 'app-contact',
@@ -11,8 +11,8 @@ import { Contact } from "../Model/Contact/contact.model";
 export class ContactPage {
 
   public actionSheet: boolean = false;
-  public selectedContact: Contact | null = null;
-  public sampleData: Contact[] = [];
+  public selectedContact: Contact = new Contact();
+  public contacts: Contact[] = [];
   public isEditModalOpen: boolean = false;
 
   public actionSheetButtons = [
@@ -38,30 +38,40 @@ export class ContactPage {
     },
   ];
 
-  constructor() {
-    this.sampleData = Contact.getContacts();
+  constructor(private contactService: ContactService) {
   }
 
-  private deleteContact() {
+  private async deleteContact() {
 
     if (!this.selectedContact) {
       throw new Error('Contact not found');
     }
 
-    this.selectedContact.deleteContact();
-    //update views
-    this.sampleData = Contact.getContacts();
-
+    await this.contactService.deleteContact(this.selectedContact.id);
+    this.contacts = await this.contactService.getContacts();
   }
 
-  openActionSheet(open: boolean, id: number) {
+  async ngOnInit() {
+    this.contacts = await this.contactService.getContacts()
+  }
+
+  async openActionSheet(open: boolean, id: number) {
     this.actionSheet = open;
-    this.selectedContact = Contact.getContact(id);
+    let selectedContact = this.contacts.find((contact) => contact.id == id);
+
+    if(selectedContact)
+    {
+      this.selectedContact = selectedContact;
+    }
+
   }
 
   actionSheetHandler(event: any) {
     this.actionSheet = false;
     const action = event.detail.data.action;
+
+    if(!action && action == undefined)
+    {return;}
 
     switch (action) {
       case 'delete':
@@ -75,14 +85,25 @@ export class ContactPage {
     }
   }
 
-  onContactSaved(contact: Contact) {
-    console.log(contact);
+  async onContactSaved(contact: Contact) {
+    
     this.toggleEditModal(false);
-    this.sampleData = Contact.getContacts();
+
+    if(this.selectedContact.id == 0)
+      await this.contactService.createContact(contact);
+    else
+      await this.contactService.updateContact(contact);
+
+    this.contacts = await this.contactService.getContacts();
+    return;
   }
 
-  toggleEditModal(open: boolean) {
-    console.log('toggleEditModal');
+  toggleEditModal(open: boolean, edit: boolean = true) {
+
+    if(!edit){
+      this.selectedContact = new Contact();
+    }
+
     this.isEditModalOpen = open;
   }
 }

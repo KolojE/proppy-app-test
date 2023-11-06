@@ -2,8 +2,13 @@
     <ion-header [translucent]="true">
         <ion-toolbar>
         <ion-title>
-            Contact
+            Contact 
         </ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="toggleEditModal(true,false)">
+            <ion-icon slot="icon-only" name="add" ></ion-icon>
+            </ion-button>
+        </ion-buttons>
         </ion-toolbar>
     </ion-header>
     
@@ -13,7 +18,7 @@
             <ion-title size="large">Contact</ion-title>
         </ion-toolbar>
         </ion-header>
-        <ion-list *ngFor="let contact of sampleData" (click)="openActionSheet(true,contact.id)" >
+        <ion-list *ngFor="let contact of contacts" (click)="openActionSheet(true,contact.id)"  >
             <ion-list-header>
                 <ion-label>
                     {{contact.name}}

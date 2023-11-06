@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
+import { FormGroup,FormBuilder, Validators } from "@angular/forms";
 import { Contact, IContact } from "src/app/Model/Contact/contact.model";
 
 
@@ -11,33 +12,30 @@ import { Contact, IContact } from "src/app/Model/Contact/contact.model";
 export class ContactEditModal {
 
     @Input() isOpen = false;
-    @Input() contact: Contact | null = null;
+    @Input() contact: Contact = new Contact();
     @Output() didDismiss: EventEmitter<any> = new EventEmitter();
     @Output() onSave: EventEmitter<any> = new EventEmitter();
 
-    constructor() {
+    contactForm: FormGroup;
+
+    constructor(FormBuilder: FormBuilder) {
+        this.contactForm = FormBuilder.group({
+            name: ['', Validators.required],
+        });
     }
+
 
     dismissModal() {
         this.didDismiss.emit();
     }
 
     saveContact() {
-        console.log("onSave")
-        if (!this.contact) {
-            throw new Error('No Contact Selected! ');
-        }
-        this.contact.editContact();
         this.dismissModal();
         this.onSave.emit(this.contact);
     }
 
     onDetailsChange(event: any) {
-        console.log("onDetailsChange");
 
-        if (!this.contact) {
-            throw new Error("No Contact Selected! ");
-        }
         const key = event.target.name as keyof IContact;
         const value = event.target.value as never;
         this.contact[key] = value;

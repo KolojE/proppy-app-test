@@ -1,13 +1,17 @@
 <ion-modal [isOpen]="isOpen" (didDismiss)="dismissModal()">
     <ng-template>
         <div class="ion-page" id="main-content" class="ion-justify-content-start">
+            <form [formGroup]="contactForm" (ngSubmit)="saveContact()" >
             <ion-header [translucent]="true">
                 <ion-toolbar>
-                    <ion-title>
-                        User ID: {{contact?.id}}
+                    <ion-title *ngIf="contact != null && contact.id != 0">
+                        User ID: {{contact.id}}
+                    </ion-title>
+                    <ion-title *ngIf="contact ==null || contact.id == 0 ">
+                        New User
                     </ion-title>
                     <ion-buttons slot="end">
-                        <ion-button (click)="saveContact()">
+                        <ion-button type="submit">
                             <ion-icon name="save"></ion-icon>
                         </ion-button>
                     </ion-buttons>
@@ -16,53 +20,53 @@
 
             <ion-list slot="start" inset="true">
                 <ion-item>
-                    <ion-label>Name</ion-label>
-                    <ion-input name="name" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter your name" [value]="contact?.name">
-
+                    <ion-label>Name*</ion-label>
+                    <ion-input name="name" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter your name" [value]="contact.name" required>
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>Email</ion-label>
-                    <ion-input name="email" (ionChange)="onDetailsChange($event)" type="email" placeholder="Enter your email" [value]="contact?.email">
+                    <ion-input name="email" (ionChange)="onDetailsChange($event)" type="email" placeholder="Enter your email" [value]="contact.email">
 
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>Phone</ion-label>
-                    <ion-input name="phone" (ionChange)="onDetailsChange($event)" type="Text" placeholder="Enter phone" [value]="contact?.phone">
+                    <ion-input name="phone" (ionChange)="onDetailsChange($event)" type="Text" placeholder="Enter phone" [value]="contact.phone">
 
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>Address</ion-label>
-                    <ion-input name="address" (ionChange)="onDetailsChange($event)" type="Text" placeholder="Enter address" [value]="contact?.address">
+                    <ion-input name="address" (ionChange)="onDetailsChange($event)" type="Text" placeholder="Enter address" [value]="contact.address">
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>City</ion-label>
-                    <ion-input name="city" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter city" [value]="contact?.city">
+                    <ion-input name="city" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter city" [value]="contact.city">
 
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>State</ion-label>
-                    <ion-input name="state" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter state" [value]="contact?.state">
+                    <ion-input name="state" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter state" [value]="contact.state">
 
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>Country</ion-label>
-                    <ion-input name="country" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter country" [value]="contact?.country">
+                    <ion-input name="country" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter country" [value]="contact.country">
 
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>Notes</ion-label>
-                    <ion-input name="notes" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter note" [value]="contact?.notes">
+                    <ion-input name="notes" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter note" [value]="contact.notes">
 
                     </ion-input>
                 </ion-item>
             </ion-list>
+            </form>
         </div>
     </ng-template>
 </ion-modal>
