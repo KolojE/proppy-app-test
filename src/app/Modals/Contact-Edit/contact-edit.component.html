@@ -1,7 +1,7 @@
 <ion-modal [isOpen]="isOpen" (didDismiss)="dismissModal()">
     <ng-template>
         <div class="ion-page" id="main-content" class="ion-justify-content-start">
-            <form [formGroup]="contactForm" (ngSubmit)="saveContact()" >
+            <form [formGroup]="contactForm" (ngSubmit)="saveContact()" ngNativeValidate>
             <ion-header [translucent]="true">
                 <ion-toolbar>
                     <ion-title *ngIf="contact != null && contact.id != 0">
