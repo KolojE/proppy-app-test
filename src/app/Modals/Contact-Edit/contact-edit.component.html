@@ -1,7 +1,7 @@
 <ion-modal [isOpen]="isOpen" (didDismiss)="dismissModal()">
     <ng-template>
         <div class="ion-page" id="main-content" class="ion-justify-content-start">
-            <form [formGroup]="contactForm" (ngSubmit)="saveContact()" ngNativeValidate>
+            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" >
             <ion-header [translucent]="true">
                 <ion-toolbar>
                     <ion-title *ngIf="contact != null && contact.id != 0">
@@ -18,16 +18,15 @@
                 </ion-toolbar>
             </ion-header>
 
-            <ion-list slot="start" inset="true">
-                <ion-item>
+            <ion-list slot="start" inset="true" class="form-item-list">
+                <ion-item >
                     <ion-label>Name*</ion-label>
-                    <ion-input name="name" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter your name" [value]="contact.name" required>
+                    <ion-input  name="name" (ionChange)="onDetailsChange($event)" type="text" placeholder="Enter your name" [value]="contact.name" required>
                     </ion-input>
                 </ion-item>
                 <ion-item>
                     <ion-label>Email</ion-label>
                     <ion-input name="email" (ionChange)="onDetailsChange($event)" type="email" placeholder="Enter your email" [value]="contact.email">
-
                     </ion-input>
                 </ion-item>
                 <ion-item>
@@ -67,6 +66,10 @@
                 </ion-item>
             </ion-list>
             </form>
+            <ion-toast 
+            >
+
+            </ion-toast>
         </div>
     </ng-template>
 </ion-modal>

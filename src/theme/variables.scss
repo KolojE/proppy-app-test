@@ -74,6 +74,8 @@
   --ion-color-light-contrast-rgb: 0, 0, 0;
   --ion-color-light-shade: #d7d8da;
   --ion-color-light-tint: #f5f6f9;
+
+  --highlight-color:white;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -145,6 +147,7 @@
     --ion-color-light-contrast-rgb: 255,255,255;
     --ion-color-light-shade: #1e2023;
     --ion-color-light-tint: #383a3e;
+
   }
 
   /*
@@ -182,6 +185,8 @@
     --ion-item-background: #000000;
 
     --ion-card-background: #1c1c1d;
+
+    --highlight-color:white;
   }
 
   .ios ion-modal {
@@ -189,6 +194,7 @@
     --ion-toolbar-background: var(--ion-color-step-150);
     --ion-toolbar-border-color: var(--ion-color-step-250);
   }
+
 
 
   /*
@@ -232,6 +238,8 @@
     --ion-tab-bar-background: #1f1f1f;
 
     --ion-card-background: #1e1e1e;
+
+    --highlight-color:white;
   }
 }
 
@@ -242,3 +250,4 @@ html {
    */
   --ion-dynamic-font: var(--ion-default-dynamic-font);
 }
+

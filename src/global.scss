@@ -24,3 +24,7 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+.has-focus.sc-ion-input-md-h input.sc-ion-input-md {
+    caret-color: var(--ion-color-light-contrast) !important;
+}

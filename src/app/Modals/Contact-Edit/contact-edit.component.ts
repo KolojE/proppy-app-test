@@ -16,12 +16,14 @@ export class ContactEditModal {
     @Output() didDismiss: EventEmitter<any> = new EventEmitter();
     @Output() onSave: EventEmitter<any> = new EventEmitter();
 
+    updatedContact: Contact = this.contact;
     contactForm: FormGroup;
 
     constructor(FormBuilder: FormBuilder) {
         this.contactForm = FormBuilder.group({
             name: ['', Validators.required],
-        });
+        }
+        );
     }
 
 
@@ -31,13 +33,22 @@ export class ContactEditModal {
 
     saveContact() {
         this.dismissModal();
-        this.onSave.emit(this.contact);
+        this.onSave.emit(this.updatedContact);
     }
 
     onDetailsChange(event: any) {
 
         const key = event.target.name as keyof IContact;
         const value = event.target.value as never;
-        this.contact[key] = value;
+        this.updatedContact[key] = value;
     }
+
+    onSubmit()
+    {
+        
+        this.contact= this.updatedContact;
+        this.dismissModal();
+        this.saveContact();
+    }
+
 }
